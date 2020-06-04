@@ -55,7 +55,9 @@ Class Admin implements AdminInterface {
         
         add_thickbox();
 
-        echo $this->View('admin/log')->render(['files' => $files]);
+        Path::i('wpa')->init(dirname(dirname(__DIR__)));
+        
+        echo $this->View('admin/log')->setI('wpa')->render(['files' => $files]);
     }
 
     public function show_content_log() : void {
