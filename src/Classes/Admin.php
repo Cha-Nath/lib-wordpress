@@ -10,7 +10,10 @@ Class Admin implements AdminInterface {
 
     use ViewTrait;
 
-    public function active_wp_admin_log() : void {
+    private $_title = 'log';
+
+    public function active_wp_admin_log(string $title) : void {
+        $this->_title = $title;
         add_action('admin_menu', [$this, 'add_admin_menu']);
         add_action( 'admin_action_show_content_log', [$this, 'show_content_log'] );
     }
@@ -19,7 +22,7 @@ Class Admin implements AdminInterface {
     
     public function add_admin_menu() : void {
 
-        $title = __('Log');
+        $title = __($this->_title);
         add_menu_page(
             $title,
             $title,
@@ -55,8 +58,7 @@ Class Admin implements AdminInterface {
         
         add_thickbox();
 
-        Path::i('wpa')->init(dirname(dirname(__DIR__)));
-        
+        Path::i('wpa')->init(dirname(dirname(__DIR__)));        
         echo $this->View('admin/log')->setI('wpa')->render(['files' => $files]);
     }
 
