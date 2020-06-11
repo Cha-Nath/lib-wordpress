@@ -6,9 +6,10 @@ interface AdminInterface {
 
     /**
      *
+     * @param string $title
      * @return void
      */
-    public function active_wp_admin_log() : void;
+    public function active_wp_admin_log(string $title) : void;
     
     /**
      *
