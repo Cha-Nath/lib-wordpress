@@ -2,6 +2,7 @@
 
 namespace nlib\Wordpress\Classes;
 
+use nlib\Instance\Traits\InstanceTrait;
 use nlib\Path\Classes\Path;
 use nlib\View\Traits\ViewTrait;
 use nlib\Wordpress\Interfaces\AdminInterface;
@@ -9,6 +10,7 @@ use nlib\Wordpress\Interfaces\AdminInterface;
 Class Admin implements AdminInterface {
 
     use ViewTrait;
+    use InstanceTrait;
 
     private $_title = 'log';
 
@@ -44,7 +46,7 @@ Class Admin implements AdminInterface {
 
     public function show_page_log() : void {
         
-        $files = scandir($log = Path::i()->getLog());
+        $files = scandir($log = Path::i($this->_i())->getLog());
         // $var = Path::i()->getVar();$log = Path::i()->getLog();
         
         // var_dump($var, substr(sprintf('%o', fileperms($var)), -4));
@@ -59,13 +61,13 @@ Class Admin implements AdminInterface {
         add_thickbox();
 
         Path::i('wpa')->init(dirname(dirname(__DIR__)));        
-        echo $this->View('admin/log')->setI('wpa')->render(['files' => $files]);
+        echo $this->View('admin/log')->setInstance('wpa')->render(['files' => $files]);
     }
 
     public function show_content_log() : void {
         
         if(array_key_exists($key = 'log', $request = $_REQUEST))
-            if(file_exists($file = Path::i()->getLog() . $request[$key]))
+            if(file_exists($file = Path::i($this->_i())->getLog() . $request[$key]))
                 echo(file_get_contents($file));
     }
 
