@@ -5,7 +5,8 @@
     "require": {
         "php": "^7.1.3",
         "nlib/lib-tool" : "dev-master@dev",
-        "nlib/lib-instance" : "dev-master@dev"
+        "nlib/lib-instance" : "dev-master@dev",
+        "nlib/lib-view" : "dev-master@dev"
     },
     "autoload": {
         "psr-4": {
